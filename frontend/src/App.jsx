@@ -7,7 +7,6 @@ import { getDatabase, ref, onValue, set } from "firebase/database";
 
 import imgDay from "./assets/day.png";
 import imgNight from "./assets/night.png";
-import imgHum from "./assets/humidity.png";
 import imgAlt from "./assets/altitude.png";
 
 const firebaseConfig = {
