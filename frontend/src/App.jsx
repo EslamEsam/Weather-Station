@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
-import ProgressRing from "./components/ProgressRing";
 import "./App.sass";
+import Home from "./components/Home";
+import Admin from "./components/Admin";
 
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, onValue, set } from "firebase/database";
+
+import { Routes, Route } from "react-router-dom";
 
 import imgDay from "./assets/day.png";
 import imgNight from "./assets/night.png";
@@ -14,18 +17,6 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
-
-// SET
-/*
-  set(ref(db, "users/" + formData.name), {
-      username: formData.name,
-      email: formData.email,
-      message: formData.message,
-      time: dateTimeNow(),
-    });
- */
-
-// GET
 
 function App() {
   const [temp, setTemp] = useState(0);
@@ -55,28 +46,22 @@ function App() {
 
   return (
     <div className="App h-[100vh] grid place-content-center">
-      <header className="flex flex-col items-center">
-        <h1 className="text-4xl text-gray-600">Cairo, Egypt</h1>
-        <p className="mt-2 text-gray-600">21/05/2022</p>
-      </header>
-      <main className="flex items-center gap-5 mt-5">
-        <section>
-          <h1 className="text-8xl font-semibold text-gray-800">
-            {temp}&#8451;
-          </h1>
-        </section>
-        <img className="w-[250px] h-[250px] scale-x-[-1]" src={imgDay} />
-      </main>
-      <footer className="flex justify-between items-center mt-5">
-        <div>
-          <ProgressRing percentage={hum} />
-          <p className="mt-3">Humidity</p>
-        </div>
-        <div className="flex items-center">
-          <img className="w-9 h-9" src={imgAlt} />
-          <p>{alt} m</p>
-        </div>
-      </footer>
+      {/* Routing */}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Home
+              imgDay={imgDay}
+              imgAlt={imgAlt}
+              temp={temp}
+              alt={alt}
+              hum={hum}
+            />
+          }
+        />
+        <Route path="/admin" element={<Admin />} />
+      </Routes>
     </div>
   );
 }
