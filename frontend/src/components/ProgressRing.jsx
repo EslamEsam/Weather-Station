@@ -2,12 +2,12 @@ import Progress from "react-circle-progress-bar";
 import React from "react";
 const ProgressRing = ({ className, percentage = 0, style = [] }) => {
   const [
-    width = 70,
-    height = 70,
+    width = 60,
+    height = 60,
     color = "#27b5dc",
     trailColor = "#dddccc",
     textColor = "#fff",
-    textSize = "100%",
+    textSize = "90%",
     strokeWidth = 12,
   ] = style;
   return (
