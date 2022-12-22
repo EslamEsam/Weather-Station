@@ -46,7 +46,6 @@ function App() {
 
   return (
     <div className="App h-[100vh] grid place-content-center">
-      {/* Routing */}
       <Routes>
         <Route
           path="/"
