@@ -15,15 +15,23 @@ export default function Admin() {
     tempThresh: "",
     presThresh: "",
     altThresh: "",
-    humThresh: ""
+    humThresh: "",
   });
 
   const submitConfig = (e) => {
     e.preventDefault();
 
-    set(ref(db, "config"), {
-      ...config
-    });
+    console.log(config);
+
+    for (const prop in config) {
+      if (config[prop]) {
+        set(ref(db, `config/${prop}`), config[prop]);
+      }
+    }
+
+    // set(ref(db, "config"), {
+    //   ...config,
+    // });
   };
 
   return (
@@ -31,7 +39,6 @@ export default function Admin() {
       <h1 className="mb-6 text-3xl">Admin Panel</h1>
 
       <form>
-
         <div className="mb-6">
           <label
             htmlFor="email"
@@ -44,11 +51,13 @@ export default function Admin() {
             id="email"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             placeholder="qamd.offff@gamil.com"
-            onChange={(e) => setConfig({...config, email: e.target.value})}
+            onChange={(e) =>
+              setConfig((old) => ({ ...old, email: e.target.value }))
+            }
             value={config.email}
           />
         </div>
-        
+
         <div className="flex gap-4">
           <div className="mb-6 w-full">
             <label
@@ -61,11 +70,13 @@ export default function Admin() {
               type="number"
               id="humThresh"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              onChange={(e) => setConfig({...config, humThresh: e.target.value})}
+              onChange={(e) =>
+                setConfig((old) => ({ ...old, humThresh: e.target.value }))
+              }
               placeholder="35"
             />
           </div>
-          
+
           <div className="mb-6 w-full">
             <label
               htmlFor="tempThresh"
@@ -77,7 +88,9 @@ export default function Admin() {
               type="number"
               id="tempThresh"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              onChange={(e) => setConfig({...config, tempThresh: e.target.value})}
+              onChange={(e) =>
+                setConfig((old) => ({ ...old, tempThresh: e.target.value }))
+              }
               value={config.tempThresh}
               placeholder="15"
             />
@@ -96,7 +109,9 @@ export default function Admin() {
               type="number"
               id="altThresh"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              onChange={(e) => setConfig({...config, altThresh: e.target.value})}
+              onChange={(e) =>
+                setConfig((old) => ({ ...old, altThresh: e.target.value }))
+              }
               placeholder="35"
             />
           </div>
@@ -112,12 +127,14 @@ export default function Admin() {
               type="number"
               id="presThresh"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              onChange={(e) => setConfig({...config, presThresh: e.target.value})}
+              onChange={(e) =>
+                setConfig((old) => ({ ...old, presThresh: e.target.value }))
+              }
               placeholder="35"
             />
           </div>
         </div>
-        
+
         <button
           type="submit"
           className="block sm:w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center"
