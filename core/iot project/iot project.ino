@@ -8,12 +8,13 @@
 #include <Adafruit_Sensor.h>
 #include "ESP32_MailClient.h"
 
+const int bltin_led=2, ldr=35;
 
 
 #define FIREBASE_HOST "iot-qamd-default-rtdb.firebaseio.com/config"
 #define FIREBASE_AUTH "0BMSRFJYCFMk8t1j1TNzVGAM8SVCU8KDhVe3DQ1b"
-#define WIFI_SSID "Home"
-#define WIFI_PASSWORD "esam@518"
+#define WIFI_SSID "alaa"
+#define WIFI_PASSWORD "mywn9050"
 #define DHTPIN 27     // Digital pin connected to the DHT sensor
 #define DHTTYPE    DHT11     // DHT 11
 
@@ -111,7 +112,8 @@ void sendCallback(SendStatus msg) {
 
 void setup(){
    Serial.begin(115200);
-
+   pinMode(ldr,INPUT);
+  pinMode(bltin_led,OUTPUT);
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Connecting to Wi-Fi");
   while (WiFi.status() != WL_CONNECTED)
@@ -304,6 +306,16 @@ void loop() {
       Serial.println("Email failed to send");
     }
   }
+
+  int ldr_state = digitalRead(ldr);
+  if(ldr_state==1)
+    digitalWrite(bltin_led,HIGH);
+  else
+    digitalWrite(bltin_led,LOW);
+
+  Serial.print("ldr state : ");
+  Serial.println(ldr_state);
+
 
 
   Serial.println("---------------------------------------");
